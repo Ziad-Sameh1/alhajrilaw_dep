@@ -1,0 +1,140 @@
+@use "../../styles/palette" as palette;
+
+.latest-news-header {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  color: palette.$light_primary_color_main;
+  width: 65%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.latest-news-header-container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 32px;
+}
+
+.news-item-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.news-item {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16px;
+  column-gap: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease-in-out;
+}
+
+.news-item:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.news-item-img {
+  width: 12vw;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 9vw;
+}
+
+.news-item-body {
+  width: 73%;
+  height: 9vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.news-item-body-title {
+  font-size: 24px;
+  font-family: "Cairo", sans-serif;
+  color: palette.$light_primary_color_main;
+  font-weight: 700;
+}
+
+.news-item-body-content {
+  height: 42px;
+  overflow: hidden;
+}
+
+.txt-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+.news-load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 1280px) {
+  .news-item-body-title {
+    font-size: 18px;
+  }
+  .news-item-body-content {
+    height: 22px;
+    font-size: 8px;
+  }
+
+  .news-item-body-date {
+    font-size: 8px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .news-item-body-title {
+    font-size: 12px;
+  }
+  .news-item-body-content {
+    height: 11px;
+    font-size: 6px;
+  }
+
+  .news-item-body-date {
+    font-size: 6px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .news-item-body-title {
+    font-size: 12px;
+  }
+  .news-item-body-content {
+    height: 11px;
+    font-size: 6px;
+  }
+  .news-item-body-date {
+    font-size: 6px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .news-item-body-title {
+    text-align: center;
+  }
+  .news-item-body-content {
+    text-align: center;
+  }
+  .news-item-body-date {
+    text-align: center;
+  }
+  .news-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

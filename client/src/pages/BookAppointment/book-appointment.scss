@@ -1,0 +1,261 @@
+@use "../../styles/palette" as palette;
+
+.book-appointment-info-div {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding-top: 5vh;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.book-appointment-info-div-rtl {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding-top: 5vh;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.book-appointment-info-body {
+  max-width: 75%;
+}
+
+.book-appointment-form-desc-email {
+  display: inline;
+  color: palette.$light_primary_color_main;
+}
+
+.book-appointment-form-div {
+  background-color: #f3f3f3;
+  width: 75%;
+  height: 100%;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.rtl-border {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.book-appointment-main-div {
+  width: 70%;
+  height: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.book-appointment-main-section-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8vh;
+}
+
+.book-appointment-info-main-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 21px;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.book-appointment-info-main-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 25px;
+  opacity: 0.8;
+}
+
+.book-appointment-info-item-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding-bottom: 1vh;
+}
+
+.book-appointment-info-item-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  opacity: 0.8;
+  padding-bottom: 1vh;
+}
+
+.book-appointment-info-item-details {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 21px;
+  padding-bottom: 1vh;
+}
+
+.book-appointment-info-item-details-no-rtl {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 21px;
+  padding-bottom: 1vh;
+  direction: ltr;
+}
+
+.txt-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+.book-appointment-info-item {
+  display: flex;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.item-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.item-text {
+  padding-inline-start: 1.5vw;
+}
+
+.book-appointment-form-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  padding-bottom: 2vh;
+}
+
+.book-appointment-form-desc {
+  font-family: "Poppins", sans-serif;
+  line-height: 25px;
+  font-size: 16px;
+  padding-bottom: 1vh;
+}
+
+.form-label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 1vh;
+}
+
+.book-appointment-form-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.book-appointment-form-main-div {
+  height: 85%;
+}
+
+.book-appointment-form {
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: space-evenly;
+}
+
+.book-appointment-form-item {
+  width: 100%;
+}
+
+.book-appointment-form-item-phone {
+  width: 100%;
+  direction: ltr;
+}
+
+.form-control {
+  width: 100% !important;
+  background-color: transparent !important;
+  height: 50px !important;
+}
+
+@media screen and (max-width: 1500px) {
+  .book-appointment-info-div {
+    width: 40%;
+  }
+
+  .book-appointment-info-div-rtl {
+    width: 40%;
+  }
+  .book-appointment-form-div {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .book-appointment-info-div {
+    background-color: palette.$light_primary_color_main;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    padding-top: 0vh;
+    border-radius: 0px 0px 0px 0px;
+  }
+
+  .book-appointment-info-div-rtl {
+    background-color: palette.$light_primary_color_main;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    padding-top: 0vh;
+    border-radius: 0px 0px 0px 0px;
+  }
+  .book-appointment-form-div {
+    width: 100%;
+    height: fit-content;
+    border-radius: 0px 0px 15px 15px;
+  }
+  .book-appointment-main-div {
+    width: 70%;
+    height: 160vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .book-appointment-info-item {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+  }
+  .book-appointment-info-item-header {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding-bottom: 1vh;
+  }
+
+  .book-appointment-info-item-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    opacity: 0.8;
+    padding-bottom: 1vh;
+  }
+
+  .book-appointment-info-item-details {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    line-height: 21px;
+    padding-bottom: 1vh;
+  }
+
+  .book-appointment-info-item-details-no-rtl {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    line-height: 21px;
+    padding-bottom: 1vh;
+    direction: ltr;
+  }
+  .book-appointment-form-div {
+    height: fit-content;
+    background-color: transparent;
+  }
+}

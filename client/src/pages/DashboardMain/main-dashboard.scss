@@ -1,0 +1,125 @@
+@use "../../styles/palette" as palette;
+
+.main-dashboard-page {
+  font-family: "Poppins", sans-serif;
+  width: 100%;
+}
+
+.dashboard-header-path {
+  opacity: 0.7;
+}
+
+.dashboard-header-page-title {
+  font-weight: 600;
+  font-size: 34px;
+}
+
+.dashboard-header-acc {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dashboard-header {
+  margin: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.main-dashboard-stats-item {
+  padding-inline-start: 18px;
+  width: 250px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  column-gap: 22px;
+  background-color: white;
+  border-radius: 20px;
+  transition: box-shadow 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.main-dashboard-stats-item:hover {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.main-dashboard-stats {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  column-gap: 32px;
+  row-gap: 32px;
+  margin: 32px;
+}
+
+.main-dashboard-stats-item-txt-title {
+  color: palette.$light_primary_dashboard_main;
+}
+
+.main-dashboard-stats-item-txt-details {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.main-dashboard-graph-item {
+  width: 45%;
+  border-radius: 20px;
+  background-color: white;
+  padding: 32px;
+  row-gap: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  transition: box-shadow 0.25s ease-in-out;
+}
+
+.main-dashboard-graph-item:hover {
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.main-dashboard-graph-item-shape {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-dashboard-graph-item-header {
+  font-weight: 600;
+  font-size: 20px;
+  padding-inline-start: 30px;
+}
+
+.main-dashboard-graphs {
+  margin: 32px;
+  margin-top: 10vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  row-gap: 5vh;
+  column-gap: 3vw;
+}
+
+@media screen and (max-width: 600px) {
+  .main-dashboard-stats {
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .dashboard-header {
+    row-gap: 20px;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main-dashboard-graph-item {
+    width: 100%;
+  }
+}

@@ -1,0 +1,213 @@
+@use "../../styles/palette";
+
+.how-to-reach-us-info-div {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding-top: 5vh;
+  border-radius: 15px 0px 0px 15px;
+}
+.reach-us-map {
+  border: none;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.how-to-reach-us-info-div-rtl {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding-top: 5vh;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.how-to-reach-us-info-body {
+  max-width: 75%;
+}
+
+.how-to-reach-us-map-div {
+  background-color: #f3f3f3;
+  width: 75%;
+  height: 100%;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.rtl-border {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.how-to-reach-us-main-div {
+  width: 70%;
+  height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.how-to-reach-us-main-section-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8vh;
+}
+
+.how-to-reach-us-info-main-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 21px;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.how-to-reach-us-info-main-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 25px;
+  opacity: 0.8;
+}
+
+.how-to-reach-us-info-item-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding-bottom: 1vh;
+}
+
+.how-to-reach-us-info-item-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  opacity: 0.8;
+  padding-bottom: 1vh;
+}
+
+.how-to-reach-us-info-item-details {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 21px;
+  padding-bottom: 1vh;
+}
+
+.how-to-reach-us-info-item-details-no-rtl {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 21px;
+  padding-bottom: 1vh;
+  direction: ltr;
+}
+
+.txt-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+.how-to-reach-us-info-item {
+  display: flex;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.item-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.item-text {
+  padding-inline-start: 1.5vw;
+}
+
+@media screen and (max-width: 1500px) {
+  .how-to-reach-us-info-div {
+    width: 40%;
+  }
+
+  .how-to-reach-us-info-div-rtl {
+    width: 40%;
+  }
+  .how-to-reach-us-map-div {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .how-to-reach-us-info-div {
+    background-color: palette.$light_primary_color_main;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 70vh;
+    padding-top: 0vh;
+    border-radius: 0;
+  }
+
+  .rtl-border {
+    border-radius: 0;
+  }
+
+  .how-to-reach-us-info-div-rtl {
+    background-color: palette.$light_primary_color_main;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 70vh;
+    padding-top: 0vh;
+    border-radius: 0px;
+  }
+  .how-to-reach-us-map-div {
+    width: 100%;
+    height: 50vh;
+    border-radius: 0px;
+  }
+  .reach-us-map {
+    border-radius: 0px;
+  }
+  .how-to-reach-us-main-div {
+    width: 70%;
+    height: 120vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    border-radius: 0px;
+  }
+  .pointer-cursor {
+    cursor: pointer;
+  }
+  .how-to-reach-us-info-item {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+  }
+  .how-to-reach-us-info-item-header {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding-bottom: 1vh;
+  }
+
+  .how-to-reach-us-info-item-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    opacity: 0.8;
+    padding-bottom: 1vh;
+  }
+
+  .how-to-reach-us-info-item-details {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    line-height: 21px;
+    padding-bottom: 1vh;
+  }
+
+  .how-to-reach-us-info-item-details-no-rtl {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    line-height: 21px;
+    padding-bottom: 1vh;
+    direction: ltr;
+  }
+}

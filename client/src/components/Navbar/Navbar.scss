@@ -1,0 +1,205 @@
+@use "../../styles/palette" as palette;
+
+@keyframes line_anim {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.navbar {
+  padding: 20px 35px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.sticky-navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.navbar-img {
+  width: 300px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  cursor: pointer;
+}
+
+.navbar-navlist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 60px;
+  //   background-color: purple;
+}
+
+.navbar-navlist-item {
+  cursor: pointer;
+  font-size: 20px;
+  transition: color 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-navlist-item-checked {
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+  color: palette.$light_primary_color_main;
+}
+
+.navbar-navlist-item-checked::after {
+  color: palette.$light_primary_color_main;
+  position: absolute;
+  content: "";
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  width: 100%;
+  background-image: url("../../assets/svg/horizontal-line-icon.svg");
+  background-color: palette.$light_primary_color_main;
+  animation-name: line_anim;
+  animation-duration: 0.5s;
+}
+
+.navbar-navlist-item:hover {
+  color: palette.$light_primary_color_main;
+}
+
+.navbar-consult-btn {
+  background: none;
+  border: 2px solid palette.$light_primary_color_main;
+  border-radius: 100px;
+  padding: 15px 30px;
+  cursor: pointer;
+  color: palette.$light_primary_color_main;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+.navbar-consult-btn-ar {
+  background: none;
+  border: 2px solid palette.$light_primary_color_main;
+  border-radius: 100px;
+  padding: 10px 30px;
+  cursor: pointer;
+  color: palette.$light_primary_color_main;
+  font-weight: 700;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 14px;
+  font-family: "Cairo", sans-serif;
+}
+
+.navbar-consult-btn:hover {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+}
+
+.navbar-consult-btn-ar:hover {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+}
+
+.navbar-menu-mobile {
+  position: absolute;
+  top: 10%;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 10%;
+  background-color: white;
+  z-index: 999;
+}
+
+.navbar-dropdown-item {
+  cursor: pointer;
+  font-size: 16px;
+  transition: color 0.25s ease-in-out;
+  padding: 12px 16px;
+}
+
+.navbar-dropdown-item:hover {
+  color: palette.$light_primary_color_main;
+}
+
+.navbar-dropdown {
+  position: relative;
+}
+
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  width: 200%;
+  transition: display 0.3s ease-in-out;
+}
+
+.navbar-dropdown:hover {
+  .navbar-dropdown-content {
+    display: block;
+  }
+}
+
+.test-class-name {
+  border: none;
+}
+
+.navbar-menu-navlist-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.navbar-consult-btn-menu {
+  background: none;
+  border: 2px solid palette.$light_primary_color_main;
+  border-radius: 100px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: palette.$light_primary_color_main;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+  font-size: 14px;
+}
+
+@media screen and (max-width: 1550px) {
+  .navbar-consult-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+
+  .navbar-navlist-item {
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-img {
+    width: 200px;
+  }
+  .navbar {
+    padding: 20px 0px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .navbar-consult-btn {
+    padding: 10px 12px;
+    font-size: 10px;
+  }
+}

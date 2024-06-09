@@ -1,0 +1,112 @@
+@use "../../styles/palette" as palette;
+
+.speech-main-sec-header-content-divider {
+  border-top: 8px solid palette.$light_primary_color_light;
+  width: 10vw;
+  margin-inline-start: 2vw;
+  margin-inline-end: 2vw;
+}
+
+.speech-main-sec-header-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4vh;
+}
+
+.speech-main-sec-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: fit-content;
+  text-align: center;
+}
+
+.speech-empty-star {
+  width: 30px;
+}
+
+.speech-main-sec-header-content-txt {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  text-align: center;
+}
+
+.speech-main-sec-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 4vh;
+}
+
+.speech-main-sec-body-content {
+  width: 80%;
+}
+
+.speech-main-sec-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 8vh;
+  padding-top: 8vh;
+}
+
+.txt-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+.speech-main-sec-body-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 4vh 2vw;
+}
+
+.speech-main-sec-body-item-txt {
+  font-size: 24px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.speech-main-sec-body-item-icon {
+  width: 30px;
+  margin-inline-start: 2vw;
+  margin-inline-end: 2vw;
+}
+
+@media screen and (max-width: 1280px) {
+  .speech-main-sec-header-content-txt {
+    font-size: 38px;
+  }
+  .speech-main-sec-body-item-txt {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .speech-main-sec-header-content-txt {
+    font-size: 32px;
+  }
+  .speech-main-sec-body-item-txt {
+    font-size: 16px;
+  }
+  .speech-main-sec-header-img-item {
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .speech-main-sec-header-content-txt {
+    font-size: 24px;
+  }
+  .speech-main-sec-body-item-txt {
+    font-size: 12px;
+  }
+  .speech-main-sec-body-item-icon {
+    width: 15px;
+    margin-inline-end: 5vw;
+  }
+  .speech-empty-star {
+    width: 15px;
+  }
+}

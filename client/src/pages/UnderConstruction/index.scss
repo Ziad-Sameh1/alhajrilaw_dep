@@ -1,0 +1,126 @@
+@use "../../styles/palette" as palette;
+
+.under-construction-img-src {
+  height: 100%;
+  width: 100%;
+}
+
+.logo {
+  width: 300px;
+  height: auto;
+  margin-top: 30px;
+  margin-inline-start: 30px;
+  cursor: pointer;
+}
+
+.under-maintenance-text {
+  font-weight: 500;
+  font-size: 60px;
+  margin-inline-start: 70px;
+  line-height: 75px;
+  position: relative;
+  top: 30%;
+}
+
+.under-maintenance-text-en {
+  font-weight: 500;
+  font-size: 48px;
+  margin-inline-start: 70px;
+  line-height: 75px;
+  position: relative;
+  top: 30%;
+  font-family: "Poppins", sans-serif;
+}
+
+.social-icons {
+  width: 150px;
+  margin-inline-start: 70px;
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  bottom: 10%;
+}
+
+.fb-icon {
+  width: 40px;
+  cursor: pointer;
+}
+
+.twitter-icon {
+  width: 40px;
+  cursor: pointer;
+}
+
+.wrap {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.under-maintenance-special-text {
+  font-weight: 700;
+  color: palette.$light_primary_color_main;
+}
+
+.content {
+  flex: 1;
+}
+
+.under-construction-img {
+  flex: 1.4;
+  background-image: url("../../assets/images/under-construction.jpg");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: 70% 0%;
+}
+
+@media only screen and (max-width: 1200px) {
+  .content {
+    width: 100%;
+  }
+  .under-construction-img {
+    display: none;
+  }
+
+  .under-maintenance-text {
+    font-size: 48px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .under-maintenance-text-en {
+    font-size: 48px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .social-icons {
+    width: 150px;
+    display: flex;
+    height: 40px;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    top: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .under-maintenance-text {
+    font-size: 30px;
+    line-height: 50px;
+  }
+  .under-maintenance-text-en {
+    font-size: 30px;
+    line-height: 50px;
+  }
+}

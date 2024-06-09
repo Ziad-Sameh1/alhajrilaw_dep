@@ -1,0 +1,97 @@
+@use "../../styles/palette" as palette;
+
+.admin-layout-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+  position: sticky;
+  top: 0;
+}
+
+.admin-layout {
+  width: 300px;
+  background-color: white;
+}
+
+.admin-layout-navlist {
+  //   background-color: aqua;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+}
+
+.admin-layout-logo-img {
+  width: 250px;
+}
+
+.admin-layout-logo {
+  height: 50px;
+  margin: 16px;
+  margin-top: 32px;
+  cursor: pointer;
+}
+
+.item-icon {
+  width: 25px;
+  fill: palette.$light_primary_dashboard_main;
+  transition: fill 0.2s ease-in-out;
+}
+
+.item-icon-active {
+  width: 25px;
+  fill: palette.$light_primary_color_main;
+}
+
+.admin-layout-navlist-item {
+  margin: 16px;
+  margin-inline-start: 32px;
+  margin-inline-end: 32px;
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  font-family: "Poppins", sans-serif;
+  color: palette.$light_primary_dashboard_main;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.admin-layout-navlist-item:hover {
+  color: palette.$grey_300;
+  .item-icon {
+    fill: palette.$grey_300;
+  }
+}
+
+.admin-layout-navlist-item-active {
+  margin: 16px;
+  margin-inline-start: 32px;
+  margin-inline-end: 32px;
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  font-family: "Poppins", sans-serif;
+  color: palette.$light_primary_dashboard_main;
+  cursor: pointer;
+  color: palette.$light_primary_color_main;
+  font-weight: 600;
+}
+
+.lang-view {
+  width: 30%;
+}
+
+.dashboard-page {
+  display: flex;
+  background-color: #e2e8f0;
+}
+
+.dashboard-page-mobile-nav {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 99;
+}

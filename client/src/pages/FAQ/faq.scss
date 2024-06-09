@@ -1,0 +1,49 @@
+@use "../../styles/palette" as palette;
+
+.faq-main-sec-header {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  text-align: center;
+  padding-top: 6vh;
+  padding-inline-start: 2vw;
+  padding-inline-end: 2vw;
+}
+
+.faq-main-sec-accordion {
+  width: 50%;
+}
+
+.faq-main-sec-acc {
+  padding-top: 15vh;
+  padding-bottom: 15vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.txt-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+.faq-acc-title {
+  font-size: 21px;
+  font-weight: 500;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+.faq-acc-desc {
+  font-weight: 300;
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 1280px) {
+  .faq-main-sec-accordion {
+    width: 80%;
+  }
+  .faq-main-sec-header {
+    font-size: 32px;
+  }
+}

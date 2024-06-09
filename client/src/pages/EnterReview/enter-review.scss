@@ -1,0 +1,63 @@
+@use "../../styles/palette" as palette;
+
+.enter-review-page {
+  margin-top: 10vh;
+  height: 90vh;
+  //   background-color: rgb(45, 93, 133);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-form-desc-email {
+  display: inline;
+  color: palette.$light_primary_color_main;
+}
+
+.contact-form-desc {
+  font-family: "Poppins", sans-serif;
+  line-height: 25px;
+  font-size: 16px;
+  padding-bottom: 1vh;
+}
+
+.enter-review-form-header {
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 35px;
+  padding-bottom: 4vh;
+}
+
+.enter-review-form-item {
+  width: 100%;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
+.enter-review-form-item-phone {
+  width: 100%;
+  direction: ltr;
+}
+
+.form-control {
+  width: 100% !important;
+  background-color: transparent !important;
+  height: 50px !important;
+}
+
+.choose-rating-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media screen and (max-width: 500px) {
+  .enter-review-main-sec {
+    max-width: 80vw;
+  }
+  .contact-form-desc {
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,97 @@
+@use "../../styles/palette" as palette;
+
+::selection {
+  background: palette.$light_primary_color_main;
+  color: white;
+}
+
+.created-page-content-container {
+  display: flex;
+  justify-content: center;
+}
+
+.created-page-thumbnail-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.created-page-thumbnail {
+  max-width: 60%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+
+.created-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+.created-page-header-title {
+  font-weight: 700;
+  font-size: 48px;
+  color: palette.$light_primary_color_main;
+  text-align: center;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.created-page-content {
+  max-width: 80%;
+  padding: 60px;
+  line-height: 42px;
+  font-size: 18px;
+}
+
+.created-page-video {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+}
+
+// styles
+
+.bold {
+  font-weight: 700;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.removed {
+  text-decoration: line-through;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.header1 {
+  font-size: 48px;
+}
+
+.header2 {
+  font-size: 36px;
+}
+
+.header3 {
+  font-size: 24px;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+.txt-start {
+  text-align: start;
+}
+
+.txt-end {
+  text-align: end;
+}

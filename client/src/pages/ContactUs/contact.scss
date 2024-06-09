@@ -1,0 +1,261 @@
+@use "../../styles/palette" as palette;
+
+.contact-info-div {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding-top: 5vh;
+  border-radius: 15px 0px 0px 15px;
+}
+
+.contact-info-div-rtl {
+  background-color: palette.$light_primary_color_main;
+  color: white;
+  display: flex;
+  justify-content: center;
+  width: 25%;
+  height: 100%;
+  padding-top: 5vh;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.contact-info-body {
+  max-width: 75%;
+}
+
+.contact-form-desc-email {
+  display: inline;
+  color: palette.$light_primary_color_main;
+}
+
+.contact-form-div {
+  background-color: #f3f3f3;
+  width: 75%;
+  height: 100%;
+  border-radius: 0px 15px 15px 0px;
+}
+
+.rtl-border {
+  border-radius: 15px 0px 0px 15px;
+}
+
+.contact-main-div {
+  width: 70%;
+  height: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.contact-main-section-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8vh;
+}
+
+.contact-info-main-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 21px;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+}
+
+.contact-info-main-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 25px;
+  opacity: 0.8;
+}
+
+.contact-info-item-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding-bottom: 1vh;
+}
+
+.contact-info-item-desc {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  opacity: 0.8;
+  padding-bottom: 1vh;
+}
+
+.contact-info-item-details {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 21px;
+  padding-bottom: 1vh;
+}
+
+.contact-info-item-details-no-rtl {
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+  line-height: 21px;
+  padding-bottom: 1vh;
+  direction: ltr;
+}
+
+.txt-ar {
+  font-family: "Cairo", sans-serif;
+}
+
+.contact-info-item {
+  display: flex;
+  padding-top: 4vh;
+  padding-bottom: 4vh;
+}
+
+.item-icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.item-text {
+  padding-inline-start: 1.5vw;
+}
+
+.contact-form-header {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  padding-bottom: 2vh;
+}
+
+.contact-form-desc {
+  font-family: "Poppins", sans-serif;
+  line-height: 25px;
+  font-size: 16px;
+  padding-bottom: 1vh;
+}
+
+.form-label {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding-bottom: 1vh;
+}
+
+.contact-form-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-form-main-div {
+  height: 85%;
+}
+
+.contact-form {
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: space-evenly;
+}
+
+.contact-form-item {
+  width: 100%;
+}
+
+.contact-form-item-phone {
+  width: 100%;
+  direction: ltr;
+}
+
+.form-control {
+  width: 100% !important;
+  background-color: transparent !important;
+  height: 50px !important;
+}
+
+@media screen and (max-width: 1500px) {
+  .contact-info-div {
+    width: 40%;
+  }
+
+  .contact-info-div-rtl {
+    width: 40%;
+  }
+  .contact-form-div {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .contact-info-div {
+    background-color: palette.$light_primary_color_main;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    padding-top: 0vh;
+    border-radius: 0px 0px 0px 0px;
+  }
+
+  .contact-info-div-rtl {
+    background-color: palette.$light_primary_color_main;
+    color: white;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+    padding-top: 0vh;
+    border-radius: 0px 0px 0px 0px;
+  }
+  .contact-form-div {
+    width: 100%;
+    height: fit-content;
+    border-radius: 0px 0px 15px 15px;
+  }
+  .contact-main-div {
+    width: 70%;
+    height: 120vh;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .contact-info-item {
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+  }
+  .contact-info-item-header {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding-bottom: 1vh;
+  }
+
+  .contact-info-item-desc {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    opacity: 0.8;
+    padding-bottom: 1vh;
+  }
+
+  .contact-info-item-details {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    line-height: 21px;
+    padding-bottom: 1vh;
+  }
+
+  .contact-info-item-details-no-rtl {
+    font-family: "Poppins", sans-serif;
+    font-size: 10px;
+    line-height: 21px;
+    padding-bottom: 1vh;
+    direction: ltr;
+  }
+  .contact-form-div {
+    height: fit-content;
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,57 @@
+@use "../../styles/palette" as palette;
+
+.add-new-page {
+  width: 100%;
+}
+
+.category-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 2vw;
+}
+
+.add-new-page-content-container {
+  display: flex;
+  justify-content: center;
+  min-height: 80vh;
+  padding-top: 10vh;
+  padding-bottom: 20vh;
+}
+
+.add-new-page-content {
+  padding: 48px;
+  background-color: #d2dae4;
+  border-radius: 20px;
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  row-gap: 5vw;
+  align-items: center;
+}
+
+.add-page-editor {
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
+
+.add-new-page-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.upload-thumbnail-div {
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  row-gap: 8px;
+  padding: 32px;
+  background-color: palette.$light_primary_dashboard_light;
+}

@@ -1,0 +1,28 @@
+@use "../../styles/palette" as palette;
+
+.settings-page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.settings-item-header {
+  font-weight: 600;
+  font-size: 24px;
+  margin: 32px;
+}
+
+.width-200 {
+  width: 200px;
+  margin-inline-start: 32px;
+}
+
+.settings-statistics-item {
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 16px;
+  color: #757d94;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}

@@ -1,0 +1,17 @@
+@use "../../styles/palette" as palette;
+
+.not-found-page {
+  margin: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 85vh;
+  justify-content: space-evenly;
+}
+
+.not-found-desc {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 36px;
+}
