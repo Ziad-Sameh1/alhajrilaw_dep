@@ -70,73 +70,95 @@ const transporter = nodemailer.createTransport(
 );
 
 const addCheckpoint = async (req, res) => {
-  /**
-   * Tested 28 Mar 2023
-   */
   try {
-    const { email, lat, lng } = req.body;
-    const created = await Checkpoint.create({
-      email: email,
-      lat: lat,
-      lng: lng,
-    });
+    const { email, lat, lng, placeName } = req.body;
+    const user = await User.findOne({ email: email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    let checkInStatus = user.checkInStatus;
+    let checkInTime;
+    let checkOutTime;
+    let created;
+
+    if (checkInStatus === 'checked_out' || checkInStatus === 'none') {
+      checkInStatus = 'checked_in';
+      checkInTime = new Date();
+
+      created = await Checkpoint.create({
+        email: email,
+        lat: lat,
+        lng: lng,
+        checkInTime: checkInTime,
+        placeName: placeName, // Include placeName when checking in
+      });
+    } else if (checkInStatus === 'checked_in') {
+      checkInStatus = 'checked_out';
+      checkOutTime = new Date();
+
+      // Find the last checkpoint for the user
+      created = await Checkpoint.findOneAndUpdate(
+        { email: email },
+        { $set: { checkOutTime: checkOutTime } },
+        { sort: { createdAt: -1 }, new: true }
+      );
+    }
+
     if (created) {
-      const user = await User.findOne({ email: email });
-      readHTMLFile(
-        appRoute + "/views/send-location-template.html",
-        function (err, html) {
-          if (err) {
-            console.log("cannot read file: " + err);
-            res.json({
-              message: "An error occurred",
-            });
-          } else {
-            var template = handlebars.compile(html);
-            var replacements = {
-              employeeEmail: created.email,
-              latitude: created.lat,
-              longitude: created.lng,
+      user.checkInStatus = checkInStatus;
+      await user.save();
+
+      readHTMLFile(appRoute + "/views/send-location-template.html", function (
+        err,
+        html
+      ) {
+        if (err) {
+          console.log("cannot read file: " + err);
+          res.json({
+            message: "An error occurred",
+          });
+        } else {
+          var template = handlebars.compile(html);
+          var replacements = {
+            employeeEmail: created.email,
+            latitude: created.lat,
+            longitude: created.lng,
+            placeName: created.placeName, // Include placeName in the email template
+          };
+          var htmlToSend = template(replacements);
+          var sentCnt = 0;
+          for (var receiverIdx in user.receivers) {
+            const receiver = user.receivers[receiverIdx];
+            const mailInfo = {
+              from: {
+                name: "Alhajri Law Firm",
+                address: senderEmail,
+              },
+              to: receiver,
+              subject: `New Location Update(${receiver}) - ${new Date()}`,
+              html: htmlToSend,
             };
-            var htmlToSend = template(replacements);
-            var sentCnt = 0;
-            for (var receiverIdx in user.receivers) {
-              const receiver = user.receivers[receiverIdx];
-              console.log(receiver)
-              const mailInfo = {
-                from: {
-                  name: "Alhajri Law Firm",
-                  address: senderEmail,
-                },
-                to: receiver,
-                subject: `New Location Update(${receiver}) - ${new Date()}`,
-                html: htmlToSend,
-              };
-              transporter.sendMail(mailInfo, function (err, data) {
-                sentCnt++;
-                console.log(mailInfo)
-                if (sentCnt == user.receivers.length) {
-                  return res.json(created);
-                }
-                // if (err) {
-                //   console.log("cannot send email: " + err);
-                //   res.json({
-                //     message: "An error occurred",
-                //   });
-                // }
-              });
-            }
+            transporter.sendMail(mailInfo, function (err, data) {
+              sentCnt++;
+              if (sentCnt == user.receivers.length) {
+                return res.json(created);
+              }
+            });
           }
         }
-      );
+      });
     } else {
       res.status(500).json({ msg: "Error Occurred!" });
     }
   } catch (err) {
-    console.log(err)
-    res.status(500).json({ error: err.checkpoint });
-    console.log(`Error: ${err.checkpoint}`);
+    console.log(err);
+    res.status(500).json({ error: err.message });
+    console.log(`Error: ${err.message}`);
   }
 };
+
 
 const getCheckpoints = async (req, res) => {
   /**
@@ -179,24 +201,51 @@ const getCheckpointsByName = async (req, res) => {
   }
 };
 
+const getLatestCheckpointByUser = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const user = await User.findOne({ email: email });
+    console.log(email);
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const latestCheckpoint = await Checkpoint.findOne({ email: email })
+      .sort({ createdAt: -1 });
+
+    if (latestCheckpoint) {
+      return res.status(200).json(latestCheckpoint);
+    } else {
+      return res.status(404).json({ msg: "No Checkpoints Found" });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server Error" });
+  }
+};
+
 const getCheckpointsByUser = async (req, res) => {
-  /**
-   * Tested 28 Mar 2023
-   */
   try {
     const { email, pageSize, pageNum } = req.query;
-    const result = await Checkpoint.find({
-      email: email,
-    })
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const checkpoints = await Checkpoint.find({ email: email })
       .sort({ createdAt: "desc" })
-      .limit(pageSize)
-      .skip(pageSize * pageNum);
-    if (result) {
-      res.status(200).json(result);
-    } else res.status(404).json({ msg: "No Documents Found" });
+      .limit(parseInt(pageSize))
+      .skip(parseInt(pageSize) * parseInt(pageNum));
+
+    if (checkpoints.length > 0) {
+      return res.status(200).json({ user: user, checkpoints: checkpoints });
+    } else {
+      return res.status(404).json({ msg: "No Checkpoints Found" });
+    }
   } catch (err) {
-    res.status(500).json({ error: err.checkpoint });
-    console.log(`Error: ${err.checkpoint}`);
+    console.error(err);
+    return res.status(500).json({ error: "Server Error" });
   }
 };
 
@@ -255,5 +304,6 @@ module.exports = {
   getCheckpointsStats,
   updateCheckpoint,
   deleteCheckpoint,
+  getLatestCheckpointByUser,
   deleteAll,
 };

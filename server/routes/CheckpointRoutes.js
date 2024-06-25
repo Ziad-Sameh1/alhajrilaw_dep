@@ -33,6 +33,12 @@ router.get(
   checkpointController.getCheckpointsByUser
 );
 
+router.get(
+  "/user/latest",
+  authMiddleware.verifyAdminLogin,
+  checkpointController.getLatestCheckpointByUser
+);
+
 router.put(
   "/update",
   authMiddleware.verifyAdminLogin,

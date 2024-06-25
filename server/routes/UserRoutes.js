@@ -7,7 +7,7 @@ const userController = require("../controllers/UserController");
 const authMiddleware = require("../middleware/auth");
 
 router.post("/login", userController.login);
-router.post("/logout", authMiddleware.verifyUserLogin, userController.logout);
+router.post("/logout", userController.logout);
 router.post("/add", authMiddleware.verifyAdminLogin, userController.addUser);
 router.get(
   "/status",

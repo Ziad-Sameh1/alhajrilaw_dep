@@ -11,7 +11,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: String,
     },
-    receivers: [{ type: String, ref: 'Admin' }]
+    receivers: [{ type: String, ref: 'Admin' }],
+    checkInStatus: {
+      type: String,
+      enum: ['checked_in', 'checked_out', 'none'],
+      default: 'none',
+    },
   },
   { timestamps: true }
 );

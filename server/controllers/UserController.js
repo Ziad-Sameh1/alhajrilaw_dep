@@ -9,16 +9,48 @@ const login = async (req, res) => {
       email: req.body.email,
       password: req.body.password,
     };
-    const user = await User.findOne({ email: request.email });
+
+    let user = await User.findOne({ email: request.email });
+    let entity = "user";
+
+    if (!user) {
+      const admin = await Admin.findOne({ email: request.email });
+      if (!admin) {
+        return res.status(400).json({ msg: "User or Admin not found" });
+      }
+      user = admin;
+      entity = "admin";
+    }
+
     console.log(user);
-    if (!user) return res.status(200).json({ msg: "User not found" });
+
     const isValidPass = await bcrypt.compare(request.password, user.password);
-    if (!isValidPass) return res.status(200).json({ msg: "Wrong password" });
+    if (!isValidPass) return res.status(400).json({ msg: "Wrong password" });
     console.log(`Logged Email: ${user.email}`);
-    const token = jwt.sign({ email: user.email }, process.env.USER_JWT_SECRET);
-    return res.cookie("token", token, { httpOnly: true }).json(user);
+
+    const token = jwt.sign(
+      { email: user.email },
+      entity === "user"
+        ? process.env.USER_JWT_SECRET
+        : process.env.ADMIN_JWT_SECRET,
+      {
+        expiresIn: "60m",
+      }
+    );
+    return res
+      .cookie("token", token, { httpOnly: true })
+      .json({
+        entity,
+        _id: user.id,
+        email: user.email,
+        password: '',
+        receivers: [],
+        checkInStatus: user.checkInStatus,
+        role: user.role,
+        createdAt: user.createdAt,
+      });
   } catch (err) {
-    res.status(500).json({ msg: err.message });
+    res.status(500).json({ error: err.message });
     console.log(`Error: ${err.message}`);
   }
 };
@@ -121,25 +153,26 @@ const addUser = async (req, res) => {
   }
 };
 
-const getUsers = async (req, res) => {
-  /**
-   * Tested 28 Mar 2023
-   */
-  try {
-    const { pageSize, pageNum } = req.query;
-    const users = await User.find({})
-      .sort({ createdAt: "desc" })
-      .limit(pageSize)
-      .skip(pageSize * pageNum);
+  const getUsers = async (req, res) => {
+    /**
+     * Tested 28 Mar 2023
+     */
+    try {
+      console.log("getUsers")
+      const { pageSize, pageNum } = req.query;
+      const users = await User.find({})
+        .sort({ createdAt: "desc" })
+        .limit(pageSize)
+        .skip(pageSize * pageNum);
 
-    if (users) {
-      res.status(200).json(users);
-    } else res.status(404).json({ msg: "No Users Found" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-    console.log(`Error: ${err.message}`);
-  }
-};
+      if (users) {
+        res.status(200).json(users);
+      } else res.status(404).json({ msg: "No Users Found" });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+      console.log(`Error: ${err.message}`);
+    }
+  };
 
 const getUserByEmailAddress = async (req, res) => {
   /**
@@ -168,7 +201,7 @@ const updateUser = async (req, res) => {
    */
   try {
     const user = await User.findOne({ email: req.body.email });
-    console.log(user)
+    console.log(user);
     if (user.receivers || user.email) {
       user.receivers = req.body.receivers;
       await user.save();

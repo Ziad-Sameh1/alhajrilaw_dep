@@ -14,6 +14,16 @@ const CheckpointSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    checkInTime: {
+      type: Date,
+    },
+    checkOutTime: {
+      type: Date,
+    },
+    placeName: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );
