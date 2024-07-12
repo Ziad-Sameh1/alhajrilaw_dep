@@ -22,6 +22,11 @@ router.get(
   checkpointController.getCheckpoints
 );
 router.get(
+  "/get-grouped",
+  // authMiddleware.verifyAdminLogin,
+  checkpointController.getCheckpointsGrouped
+);
+router.get(
   "/get-by-name",
   authMiddleware.verifyAdminLogin,
   checkpointController.getCheckpointsByName

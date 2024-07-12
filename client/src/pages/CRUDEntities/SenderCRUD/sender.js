@@ -35,6 +35,7 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { GetUserCheckpoints } from "./CheckpointMethods";
+import ReportsDialog from "../../CheckpointsReport";
 
 const monthInLetters = new Map();
 
@@ -152,8 +153,11 @@ const SenderCRUD = (props) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
     window.open(url, "_blank");
   };
+
+  const [reportsDialog, setReportsDialog] = useState(false);
   return (
     <div className="crud-div-container">
+      <ReportsDialog open={reportsDialog} setOpen={setReportsDialog} />
       <Dialog
         fullScreen
         open={checkpointsDialog}
@@ -287,6 +291,10 @@ const SenderCRUD = (props) => {
             }}
           >
             {t("add-sender")}
+          </Button>
+          
+          <Button variant="contained" onClick={() => setReportsDialog(true)}>
+            {t("open-reports")}
           </Button>
           <Tooltip title={t("refresh")}>
             <IconButton

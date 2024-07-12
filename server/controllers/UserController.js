@@ -153,6 +153,45 @@ const addUser = async (req, res) => {
   }
 };
 
+const getUsersWithCheckpointsToday = async (req, res) => {
+  try {
+    console.log("getUsersWithCheckpointsToday");
+
+    // Get today's start and end times
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
+    const todayEnd = new Date();
+    todayEnd.setHours(23, 59, 59, 999);
+
+    // Find checkpoints updated within today's range
+    const checkpoints = await Checkpoint.find({
+      updatedAt: { $gte: todayStart, $lte: todayEnd }
+    }).select('email');
+
+    // Get unique user emails from checkpoints
+    const userEmails = [...new Set(checkpoints.map(checkpoint => checkpoint.email))];
+
+    // Get the pagination details from query parameters
+    const { pageSize = 10, pageNum = 0 } = req.query;
+
+    // Find users with emails in the checkpoints found
+    const users = await User.find({ email: { $in: userEmails } })
+      .sort({ createdAt: "desc" })
+      .limit(parseInt(pageSize))
+      .skip(parseInt(pageSize) * parseInt(pageNum));
+
+    if (users.length) {
+      res.status(200).json(users);
+    } else {
+      res.status(404).json({ msg: "No Users Found" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(`Error: ${err.message}`);
+  }
+};
+
   const getUsers = async (req, res) => {
     /**
      * Tested 28 Mar 2023
@@ -221,14 +260,14 @@ const deleteUser = async (req, res) => {
   /**
    * Tested 28 Mar 2023
    */
-  try {
-    const defaultUser = await User.findOne({ email: req.query.email });
-    if (defaultUser.email === "user@alhajrilaw.com.qa") {
-      return res.status(404).json({ msg: "Cannot Delete This User" });
-    }
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
+  // try {
+  //   const defaultUser = await User.findOne({ email: req.query.email });
+  //   if (defaultUser.email === "user@alhajrilaw.com.qa") {
+  //     return res.status(404).json({ msg: "Cannot Delete This User" });
+  //   }
+  // } catch (err) {
+  //   return res.status(500).json({ error: err.message });
+  // }
   try {
     const result = await User.deleteOne({ email: req.query.email });
     if (result.deletedCount === 1)
@@ -280,4 +319,5 @@ module.exports = {
   logout,
   getEmailFromToken,
   changePassword,
+  getUsersWithCheckpointsToday
 };

@@ -1,8 +1,8 @@
 const Checkpoint = require("../models/Checkpoint");
 const User = require("../models/User");
-const appRoute = require('app-root-path')
-const handlebars = require('handlebars')
-const fs = require('fs')
+const appRoute = require("app-root-path");
+const handlebars = require("handlebars");
+const fs = require("fs");
 const nodemailer = require("nodemailer");
 const smtptransport = require("nodemailer-smtp-transport");
 
@@ -56,8 +56,8 @@ var readHTMLFile = function (path, callback) {
   });
 };
 
-const senderEmail = "ziad.s.a.m.e.h223@gmail.com"
-const senderPass = "gdmfibihwymoiqxd"
+const senderEmail = "ziad.s.a.m.e.h223@gmail.com";
+const senderPass = "gdmfibihwymoiqxd";
 
 const transporter = nodemailer.createTransport(
   smtptransport({
@@ -83,8 +83,8 @@ const addCheckpoint = async (req, res) => {
     let checkOutTime;
     let created;
 
-    if (checkInStatus === 'checked_out' || checkInStatus === 'none') {
-      checkInStatus = 'checked_in';
+    if (checkInStatus === "checked_out" || checkInStatus === "none") {
+      checkInStatus = "checked_in";
       checkInTime = new Date();
 
       created = await Checkpoint.create({
@@ -94,8 +94,8 @@ const addCheckpoint = async (req, res) => {
         checkInTime: checkInTime,
         placeName: placeName, // Include placeName when checking in
       });
-    } else if (checkInStatus === 'checked_in') {
-      checkInStatus = 'checked_out';
+    } else if (checkInStatus === "checked_in") {
+      checkInStatus = "checked_out";
       checkOutTime = new Date();
 
       // Find the last checkpoint for the user
@@ -110,45 +110,45 @@ const addCheckpoint = async (req, res) => {
       user.checkInStatus = checkInStatus;
       await user.save();
 
-      readHTMLFile(appRoute + "/views/send-location-template.html", function (
-        err,
-        html
-      ) {
-        if (err) {
-          console.log("cannot read file: " + err);
-          res.json({
-            message: "An error occurred",
-          });
-        } else {
-          var template = handlebars.compile(html);
-          var replacements = {
-            employeeEmail: created.email,
-            latitude: created.lat,
-            longitude: created.lng,
-            placeName: created.placeName, // Include placeName in the email template
-          };
-          var htmlToSend = template(replacements);
-          var sentCnt = 0;
-          for (var receiverIdx in user.receivers) {
-            const receiver = user.receivers[receiverIdx];
-            const mailInfo = {
-              from: {
-                name: "Alhajri Law Firm",
-                address: senderEmail,
-              },
-              to: receiver,
-              subject: `New Location Update(${receiver}) - ${new Date()}`,
-              html: htmlToSend,
-            };
-            transporter.sendMail(mailInfo, function (err, data) {
-              sentCnt++;
-              if (sentCnt == user.receivers.length) {
-                return res.json(created);
-              }
+      readHTMLFile(
+        appRoute + "/views/send-location-template.html",
+        function (err, html) {
+          if (err) {
+            console.log("cannot read file: " + err);
+            res.json({
+              message: "An error occurred",
             });
+          } else {
+            var template = handlebars.compile(html);
+            var replacements = {
+              employeeEmail: created.email,
+              latitude: created.lat,
+              longitude: created.lng,
+              placeName: created.placeName, // Include placeName in the email template
+            };
+            var htmlToSend = template(replacements);
+            var sentCnt = 0;
+            for (var receiverIdx in user.receivers) {
+              const receiver = user.receivers[receiverIdx];
+              const mailInfo = {
+                from: {
+                  name: "Alhajri Law Firm",
+                  address: senderEmail,
+                },
+                to: receiver,
+                subject: `New Location Update(${receiver}) - ${new Date()}`,
+                html: htmlToSend,
+              };
+              transporter.sendMail(mailInfo, function (err, data) {
+                sentCnt++;
+                if (sentCnt == user.receivers.length) {
+                  return res.json(created);
+                }
+              });
+            }
           }
         }
-      });
+      );
     } else {
       res.status(500).json({ msg: "Error Occurred!" });
     }
@@ -158,7 +158,6 @@ const addCheckpoint = async (req, res) => {
     console.log(`Error: ${err.message}`);
   }
 };
-
 
 const getCheckpoints = async (req, res) => {
   /**
@@ -177,6 +176,68 @@ const getCheckpoints = async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.checkpoint });
     console.log(`Error: ${err.checkpoint}`);
+  }
+};
+
+const getCheckpointsGrouped = async (req, res) => {
+  try {
+    const { pageSize = 10, pageNum = 0, startDate, endDate, email } = req.query;
+    const limit = parseInt(pageSize);
+    const skip = parseInt(pageSize) * parseInt(pageNum);
+
+    // Set default values for startDate and endDate if not provided
+    const start = startDate ? new Date(startDate) : new Date("1970-01-01");
+    const end = endDate ? new Date(endDate) : new Date();
+
+    // Ensure dates are in ISO format
+    start.setHours(0, 0, 0, 0);
+    end.setHours(23, 59, 59, 999);
+
+    const matchStage = {
+      $match: {
+        createdAt: { $gte: start, $lte: end },
+        ...(email && { email: { $regex: email, $options: 'i' } }), // Case-insensitive partial match
+      },
+    };
+
+    const result = await Checkpoint.aggregate([
+      matchStage,
+      {
+        $group: {
+          _id: "$email",
+          checkpoints: {
+            $push: {
+              lat: "$lat",
+              lng: "$lng",
+              checkInTime: "$checkInTime",
+              checkOutTime: "$checkOutTime",
+              placeName: "$placeName",
+              createdAt: "$createdAt",
+            },
+          },
+        },
+      },
+      {
+        $sort: { "checkpoints.createdAt": -1 },
+      },
+      {
+        $facet: {
+          data: [{ $skip: skip }, { $limit: limit }],
+          totalCount: [{ $count: "count" }],
+        },
+      },
+    ]);
+
+    const totalCount = result[0].totalCount[0]?.count || 0;
+
+    if (result.length > 0) {
+      res.status(200).json({ checkpoints: result[0].data, totalCount });
+    } else {
+      res.status(404).json({ msg: "No Documents Found" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    console.log(`Error: ${err.message}`);
   }
 };
 
@@ -211,8 +272,9 @@ const getLatestCheckpointByUser = async (req, res) => {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    const latestCheckpoint = await Checkpoint.findOne({ email: email })
-      .sort({ createdAt: -1 });
+    const latestCheckpoint = await Checkpoint.findOne({ email: email }).sort({
+      createdAt: -1,
+    });
 
     if (latestCheckpoint) {
       return res.status(200).json(latestCheckpoint);
@@ -227,13 +289,28 @@ const getLatestCheckpointByUser = async (req, res) => {
 
 const getCheckpointsByUser = async (req, res) => {
   try {
-    const { email, pageSize, pageNum } = req.query;
+    const { email, pageSize = 10, pageNum = 0, start, end } = req.query;
+
+    // Find the user by email
     const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
 
-    const checkpoints = await Checkpoint.find({ email: email })
+    // Build the date filter if start and end dates are provided
+    let dateFilter = {};
+    if (start || end) {
+      dateFilter.updatedAt = {};
+      if (start) {
+        dateFilter.updatedAt.$gte = new Date(start);
+      }
+      if (end) {
+        dateFilter.updatedAt.$lte = new Date(end);
+      }
+    }
+
+    // Find the checkpoints for the user with the date filter
+    const checkpoints = await Checkpoint.find({ email: email, ...dateFilter })
       .sort({ createdAt: "desc" })
       .limit(parseInt(pageSize))
       .skip(parseInt(pageSize) * parseInt(pageNum));
@@ -248,7 +325,6 @@ const getCheckpointsByUser = async (req, res) => {
     return res.status(500).json({ error: "Server Error" });
   }
 };
-
 const updateCheckpoint = async (req, res) => {
   /**
    * Tested 28 Mar 2023
@@ -305,5 +381,6 @@ module.exports = {
   updateCheckpoint,
   deleteCheckpoint,
   getLatestCheckpointByUser,
+  getCheckpointsGrouped,
   deleteAll,
 };

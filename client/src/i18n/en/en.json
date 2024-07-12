@@ -282,6 +282,11 @@
   "checkpoints":"Checkpoints",
   "no-checkpoints":"No Checkpoints Found!",
   "click-maps":"Click to open in Google Maps",
-  "checkpoint-item":"Checkpoint {{num}}"
+  "checkpoint-item":"Checkpoint {{num}}",
+  "reports":"Reports",
+  "start-date":"Start Date",
+  "end-date":"End Date",
+  "user":"User",
+  "filter-user":"Filter by Email.."
 
 }

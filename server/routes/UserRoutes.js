@@ -30,6 +30,11 @@ router.get(
   userController.getUsers
 );
 router.get(
+  "/get-active",
+  authMiddleware.verifyAdminLogin,
+  userController.getUsersWithCheckpointsToday
+);
+router.get(
   "/get-by-email",
   authMiddleware.verifyAdminLogin,
   userController.getUserByEmailAddress

@@ -15,7 +15,7 @@
   "home": "الرئيسية",
   "customer-reviews": "أراء عملائنا",
   "faqs": "الأسئلة الشائعة",
-  "locations":"المواقع",
+  "locations": "المواقع",
   "about-us": "من نحن",
   "receive-consultation": "تلقي استشارة",
   "footer-desc": "تأسس المكتب في عام ٢٠١١م من قبل المحامي والخبير القانوني الاستاذ/ محمد ماجد الهاجري.",
@@ -281,5 +281,10 @@
   "checkpoints": "سجل المواقع",
   "no-checkpoints": "لم يتم العثور على سجل المواقع!",
   "click-maps": "انقر لفتح خرائط جوجل",
-  "checkpoint-item":"موقع {{num}}"
+  "checkpoint-item": "موقع {{num}}",
+  "reports": "تقارير",
+  "start-date": "تاريخ البدء",
+  "end-date": "تاريخ الانتهاء",
+  "user": "مستخدم",
+  "filter-user": "تصفية بالبريد الإلكتروني.."
 }
