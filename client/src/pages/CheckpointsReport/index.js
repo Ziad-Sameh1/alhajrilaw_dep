@@ -10,6 +10,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useTranslation } from "react-i18next";
 
 import "react-datepicker/dist/react-datepicker.css";
 import { TextField } from "@mui/material";
@@ -27,6 +28,8 @@ const columns = [
 ];
 
 const ReportsDialog = ({ open, setOpen }) => {
+  const { t } = useTranslation();
+
   const [data, setData] = useState([]);
   const [pageSize, setPageSize] = useState(10);
   const [pageNum, setPageNum] = useState(0);
