@@ -18,15 +18,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const columns = [
-  { field: "email", headerName: "Email", width: 200 },
-  { field: "lat", headerName: "Latitude", width: 150 },
-  { field: "lng", headerName: "Longitude", width: 150 },
-  { field: "checkInTime", headerName: "Check-In Time", width: 200 },
-  { field: "checkOutTime", headerName: "Check-Out Time", width: 200 },
-  { field: "placeName", headerName: "Place Name", width: 200 },
-];
-
 const ReportsDialog = ({ open, setOpen }) => {
   const { t } = useTranslation();
 
@@ -36,16 +27,34 @@ const ReportsDialog = ({ open, setOpen }) => {
   const [startDate, setStartDate] = useState(null);
   const [email, setEmail] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const columns = [
+    { field: "email", headerName: t("email-address"), width: 200 },
+    { field: "lat", headerName: t("lat"), width: 150 },
+    { field: "lng", headerName: t("lng"), width: 150 },
+    { field: "checkInTime", headerName: t("checkin-time"), width: 200 },
+    { field: "checkOutTime", headerName: t("checkout-time"), width: 200 },
+    { field: "timeSpent", headerName: t("time-spent"), width: 200 },
+    { field: "placeName", headerName: t("placename"), width: 200 },
+  ];
+
   const rows = data.flatMap((user, userIndex) =>
-    user.checkpoints.map((checkpoint, index) => ({
-      id: `${userIndex}-${index}`,
-      email: user._id,
-      lat: checkpoint.lat,
-      lng: checkpoint.lng,
-      checkInTime: new Date(checkpoint.checkInTime).toLocaleString(),
-      checkOutTime: new Date(checkpoint.checkOutTime).toLocaleString(),
-      placeName: checkpoint.placeName,
-    }))
+    user.checkpoints.map((checkpoint, index) => {
+      const checkInTime = new Date(checkpoint.checkInTime);
+      const checkOutTime = new Date(checkpoint.checkOutTime);
+      const timeSpent = Math.abs(checkOutTime - checkInTime); // difference in milliseconds
+
+      return {
+        id: `${userIndex}-${index}`,
+        email: user._id,
+        lat: checkpoint.lat,
+        lng: checkpoint.lng,
+        checkInTime: checkInTime.toLocaleString(),
+        checkOutTime: checkOutTime.toLocaleString(),
+        placeName: checkpoint.placeName,
+        timeSpent: Math.round(timeSpent / (1000 * 60)) + " " + t("minutes"), // convert to minutes and format
+      };
+    })
   );
 
   useEffect(() => {

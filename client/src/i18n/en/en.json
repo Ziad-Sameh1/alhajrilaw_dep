@@ -288,5 +288,12 @@
   "end-date": "End Date",
   "user": "User",
   "filter-user": "Filter by Email..",
-  "open-reports": "Open Reports"
+  "open-reports": "Open Reports",
+  "lat": "Latitude",
+  "lng": "Longitude",
+  "checkin-time": "Checkin Time",
+  "checkout-time": "Checkout Time",
+  "placename": "Place Name",
+  "time-spent": "Time Spent",
+  "minutes":"Minutes"
 }
