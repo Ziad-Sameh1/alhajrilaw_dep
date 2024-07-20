@@ -30,12 +30,7 @@ const jobsRouter = require("./routes/JobRoutes");
 dotenv.config();
 app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ limit: "500mb" }));
-app.use(
-  cors({
-    credentials: true,
-    origin: ["https://alhajrilaw.com.qa", "https://www.alhajrilaw.com.qa"],
-  })
-);
+app.use(cors({ credentials: true, origin: "https://www.alhajrilaw.com.qa" }));
 app.use(cookieParser());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
