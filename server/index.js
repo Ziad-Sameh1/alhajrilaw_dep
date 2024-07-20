@@ -26,10 +26,6 @@ const userRouter = require("./routes/UserRoutes");
 const sharesRouter = require("./routes/ShareRoutes");
 const categoriesRouter = require("./routes/CategoryRoutes");
 const jobsRouter = require("./routes/JobRoutes");
-const allowedOrigins = [
-  "https://alhajrilaw.com.qa",
-  "https://www.alhajrilaw.com.qa",
-];
 
 dotenv.config();
 app.use(express.json({ limit: "500mb" }));
@@ -37,13 +33,7 @@ app.use(express.urlencoded({ limit: "500mb" }));
 app.use(
   cors({
     credentials: true,
-    origin: function (origin, callback) {
-      if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: ["https://alhajrilaw.com.qa", "https://www.alhajrilaw.com.qa"],
   })
 );
 app.use(cookieParser());
