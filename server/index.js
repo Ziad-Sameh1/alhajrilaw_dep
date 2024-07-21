@@ -26,26 +26,15 @@ const userRouter = require("./routes/UserRoutes");
 const sharesRouter = require("./routes/ShareRoutes");
 const categoriesRouter = require("./routes/CategoryRoutes");
 const jobsRouter = require("./routes/JobRoutes");
-const corsOpts = {
-  origin: '*',
 
-  methods: [
-    'GET',
-    'POST',
-  ],
-
-  allowedHeaders: [
-    'Content-Type',
-  ],
-};
-
+app.use(cors());
+app.options('*', cors());
 dotenv.config();
 app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ limit: "500mb" }));
-app.use(cors(corsOpts));
 app.use(cookieParser());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(
   "/api/uploads/images/staff",
