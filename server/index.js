@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const helmet = require("helmet");
@@ -12,7 +11,6 @@ const cookieParser = require("cookie-parser");
 
 const websiteInfoRouter = require("./routes/WebsiteInfoRoutes");
 const clientRouter = require("./routes/ClientRoutes");
-``;
 const FAQRouter = require("./routes/FAQRoutes");
 const messageRouter = require("./routes/MessageRoutes");
 const checkpointRouter = require("./routes/CheckpointRoutes");
@@ -27,14 +25,13 @@ const sharesRouter = require("./routes/ShareRoutes");
 const categoriesRouter = require("./routes/CategoryRoutes");
 const jobsRouter = require("./routes/JobRoutes");
 
-app.use(cors());
-app.options('*', cors());
 dotenv.config();
 app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ limit: "500mb" }));
+app.use(cors({ credentials: true, origin: process.env.CLIENT_LINK }));
 app.use(cookieParser());
 app.use(helmet());
-// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(
   "/api/uploads/images/staff",
