@@ -295,5 +295,9 @@
   "checkout-time": "Checkout Time",
   "placename": "Place Name",
   "time-spent": "Time Spent",
-  "minutes":"Minutes"
+  "minutes":"Minutes",
+  "checkin_lat": "Checkin Latitude",
+  "checkin_lng": "Checkin Longitude",
+  "checkout_lat": "Checkout Latitude",
+  "checkout_lng": "Checkout Longitude"
 }

@@ -206,12 +206,12 @@ const SenderCRUD = (props) => {
                 >
                   <ListItemButton
                     onClick={() =>
-                      openInGoogleMaps(checkpoint.lat, checkpoint.lng)
+                      openInGoogleMaps(checkpoint.checkin_lat, checkpoint.checkin_lng)
                     }
                   >
                     <ListItemText
                       primary={t("checkpoint-item", { num: index + 1 })}
-                      secondary={`Lat: ${checkpoint.lat}, Lng: ${checkpoint.lng}`}
+                      secondary={`Lat: ${checkpoint.checkin_lat}, Lng: ${checkpoint.checkin_lng}`}
                     />
                   </ListItemButton>
                   <Typography

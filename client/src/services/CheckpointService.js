@@ -58,4 +58,28 @@ const getCheckpointsReport = async (
   }
 };
 
-export { getSenderCheckpoints, getCheckpointsReport };
+const deleteCheckpoint = async (
+  id,
+  t
+) => {
+  try {
+    configureStates(true, false, "");
+    console.log("axios get")
+    const result = await axios.delete(
+      `${process.env.REACT_APP_SERVER_LINK}/checkpoints/delete/${id}`,
+    );
+    console.log("result", result)
+    if (result.status == 200) {
+      configureStates(false, false, "");
+    } else if (result.status == 404) {
+      configureStates(false, true, t("no-data-found"));
+    } else {
+      configureStates(false, true, t("error-occurred"));
+    }
+    return result.data;
+  } catch (err) {
+    configureStates(false, true, t("internet-problem"));
+  }
+};
+
+export { getSenderCheckpoints, getCheckpointsReport, deleteCheckpoint };

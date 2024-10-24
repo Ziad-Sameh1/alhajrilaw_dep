@@ -91,9 +91,8 @@ const SenderUpdateDialog = (props) => {
         );
       }
       if (!isAdd) formik.setFieldValue("password", "000000000000");
-    }
-    else {
-      setReceivers([])
+    } else {
+      setReceivers([]);
     }
   }, [open]);
 
@@ -110,6 +109,7 @@ const SenderUpdateDialog = (props) => {
       <DialogTitle>{isAdd ? t("add-new-sender") : t("update")}</DialogTitle>
       <form onSubmit={formik.handleSubmit} className="crud-dialog">
         <TextField
+          autoComplete="off"
           id="crud-email"
           type="email"
           name="email"
@@ -124,6 +124,7 @@ const SenderUpdateDialog = (props) => {
         />
         {isAdd && (
           <TextField
+            autoComplete="new-password"
             id="crud-password"
             name="password"
             type={showPassword ? "text" : "password"}
@@ -153,6 +154,7 @@ const SenderUpdateDialog = (props) => {
         )}
         {!isAdd && (
           <TextField
+            autoComplete="new-password-x"
             type="password"
             name="password"
             label={t("password")}
@@ -179,6 +181,7 @@ const SenderUpdateDialog = (props) => {
               }}
             >
               <TextField
+                autoComplete="off"
                 type="email"
                 label={t("receiver-email") + " " + index}
                 value={receiver.email}

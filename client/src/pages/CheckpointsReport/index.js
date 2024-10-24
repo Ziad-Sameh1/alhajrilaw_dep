@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { GetReportCheckpoints } from "../CRUDEntities/SenderCRUD/CheckpointMethods";
+import {
+  DeleteCheckpoint,
+  GetReportCheckpoints,
+} from "../CRUDEntities/SenderCRUD/CheckpointMethods";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
@@ -30,12 +36,43 @@ const ReportsDialog = ({ open, setOpen }) => {
 
   const columns = [
     { field: "email", headerName: t("email-address"), width: 200 },
-    { field: "lat", headerName: t("lat"), width: 150 },
-    { field: "lng", headerName: t("lng"), width: 150 },
+    { field: "checkin_lat", headerName: t("checkin_lat"), width: 150 },
+    { field: "checkin_lng", headerName: t("checkin_lng"), width: 150 },
+    { field: "checkout_lat", headerName: t("checkout_lat"), width: 150 },
+    { field: "checkout_lng", headerName: t("checkout_lng"), width: 150 },
     { field: "checkInTime", headerName: t("checkin-time"), width: 200 },
     { field: "checkOutTime", headerName: t("checkout-time"), width: 200 },
     { field: "timeSpent", headerName: t("time-spent"), width: 200 },
     { field: "placeName", headerName: t("placename"), width: 200 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 150,
+      renderCell: (params) => (
+        <>
+          {/* Check-in location button */}
+          <IconButton
+            onClick={() => openInGoogleMaps(params.row.checkin_lat, params.row.checkin_lng)}
+            aria-label="open check-in location"
+          >
+            <LocationOnIcon /> {/* Icon for location */}
+          </IconButton>
+    
+          {/* Check-out location button */}
+          <IconButton
+            onClick={() => openInGoogleMaps(params.row.checkout_lat, params.row.checkout_lng)}
+            aria-label="open check-out location"
+          >
+            <ExitToAppIcon /> {/* Icon for checkout location */}
+          </IconButton>
+    
+          {/* Delete button */}
+          <IconButton onClick={() => handleDelete(params.id)} aria-label="delete">
+            <DeleteIcon />
+          </IconButton>
+        </>
+      ),
+    }
   ];
 
   const rows = data.flatMap((user, userIndex) =>
@@ -45,10 +82,12 @@ const ReportsDialog = ({ open, setOpen }) => {
       const timeSpent = Math.abs(checkOutTime - checkInTime); // difference in milliseconds
 
       return {
-        id: `${userIndex}-${index}`,
+        id: checkpoint._id,
         email: user._id,
-        lat: checkpoint.lat,
-        lng: checkpoint.lng,
+        checkin_lat: checkpoint.checkin_lat,
+        checkin_lng: checkpoint.checkin_lng,
+        checkout_lat: checkpoint.checkout_lat,
+        checkout_lng: checkpoint.checkout_lng,
         checkInTime: checkInTime.toLocaleString(),
         checkOutTime: checkOutTime.toLocaleString(),
         placeName: checkpoint.placeName,
@@ -56,6 +95,11 @@ const ReportsDialog = ({ open, setOpen }) => {
       };
     })
   );
+
+  const openInGoogleMaps = (lat, lng) => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+    window.open(url, "_blank");
+  };
 
   useEffect(() => {
     if (startDate != null && endDate != null)
@@ -92,6 +136,11 @@ const ReportsDialog = ({ open, setOpen }) => {
         email
       );
   }, [open]);
+
+  const handleDelete = async (id) => {
+    await DeleteCheckpoint(id, t);
+    GetReportCheckpoints(setData, pageSize, pageNum, startDate, endDate, email);
+  };
 
   return (
     <Dialog

@@ -28,3 +28,10 @@ export const GetReportCheckpoints = async (
   const res = await getCheckpointsReport(size, num, startDate, endDate, email, t);
   entitySetter(res.checkpoints);
 };
+
+export const DeleteCheckpoint = async (
+  id,
+  t
+) => {
+  await deleteCheckpoint(id, t);
+};
