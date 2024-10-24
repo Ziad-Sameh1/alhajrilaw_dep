@@ -71,7 +71,7 @@ const transporter = nodemailer.createTransport(
 
 const addCheckpoint = async (req, res) => {
   try {
-    const { email, lat, lng, placeName } = req.body;
+    const { email, checkin_lat, checkin_lng, checkout_lat, checkout_lng, placeName } = req.body; // Updated variable names
     const user = await User.findOne({ email: email });
 
     if (!user) {
@@ -89,8 +89,8 @@ const addCheckpoint = async (req, res) => {
 
       created = await Checkpoint.create({
         email: email,
-        lat: lat,
-        lng: lng,
+        checkin_lat: checkin_lat, // Use updated property names
+        checkin_lng: checkin_lng, // Use updated property names
         checkInTime: checkInTime,
         placeName: placeName, // Include placeName when checking in
       });
@@ -98,10 +98,10 @@ const addCheckpoint = async (req, res) => {
       checkInStatus = "checked_out";
       checkOutTime = new Date();
 
-      // Find the last checkpoint for the user
+      // Find the last checkpoint for the user and update it
       created = await Checkpoint.findOneAndUpdate(
         { email: email },
-        { $set: { checkOutTime: checkOutTime } },
+        { $set: { checkout_lat: checkout_lat, checkout_lng: checkout_lng, checkOutTime: checkOutTime } }, // Update checkout fields
         { sort: { createdAt: -1 }, new: true }
       );
     }
@@ -122,8 +122,8 @@ const addCheckpoint = async (req, res) => {
             var template = handlebars.compile(html);
             var replacements = {
               employeeEmail: created.email,
-              latitude: created.lat,
-              longitude: created.lng,
+              latitude: created.checkin_lat, // Update to reflect checkpoint's lat
+              longitude: created.checkin_lng, // Update to reflect checkpoint's lng
               placeName: created.placeName, // Include placeName in the email template
             };
             var htmlToSend = template(replacements);
@@ -141,7 +141,7 @@ const addCheckpoint = async (req, res) => {
               };
               transporter.sendMail(mailInfo, function (err, data) {
                 sentCnt++;
-                if (sentCnt == user.receivers.length) {
+                if (sentCnt === user.receivers.length) {
                   return res.json(created);
                 }
               });
@@ -158,6 +158,7 @@ const addCheckpoint = async (req, res) => {
     console.log(`Error: ${err.message}`);
   }
 };
+
 
 const getCheckpoints = async (req, res) => {
   /**
@@ -206,9 +207,13 @@ const getCheckpointsGrouped = async (req, res) => {
         $group: {
           _id: "$email",
           checkpoints: {
+            // TODO: SHOW ALSO CHECKPOINT ID
             $push: {
-              lat: "$lat",
-              lng: "$lng",
+              _id: "$_id",
+              checkin_lat: "$checkin_lat",
+              checkin_lng: "$checkin_lng",
+              checkout_lat: "$checkout_lat",
+              checkout_lng: "$checkout_lng",
               checkInTime: "$checkInTime",
               checkOutTime: "$checkOutTime",
               placeName: "$placeName",
@@ -327,20 +332,24 @@ const getCheckpointsByUser = async (req, res) => {
 };
 const updateCheckpoint = async (req, res) => {
   /**
-   * Tested 28 Mar 2023
+   * Updates a checkpoint by its ID.
    */
   try {
     const result = await Checkpoint.findOne({ _id: req.body._id });
     if (result) {
       result.email = req.body.email;
-      result.lat = req.body.lat;
-      result.lng = req.body.lng;
+      result.checkin_lat = req.body.checkin_lat; // Updated to reflect new field name
+      result.checkin_lng = req.body.checkin_lng; // Updated to reflect new field name
+      result.checkout_lat = req.body.checkout_lat; // If needed
+      result.checkout_lng = req.body.checkout_lng; // If needed
       await result.save();
       res.status(200).json(result);
-    } else res.status(404).json({ msg: "No Documents Found" });
+    } else {
+      res.status(404).json({ msg: "No Documents Found" });
+    }
   } catch (err) {
-    res.status(500).json({ error: err.checkpoint });
-    console.log(`Error: ${err.checkpoint}`);
+    res.status(500).json({ error: err.message }); // Updated to use err.message for better error handling
+    console.log(`Error: ${err.message}`);
   }
 };
 
@@ -348,8 +357,11 @@ const deleteCheckpoint = async (req, res) => {
   /**
    * Tested 28 Mar 2023
    */
+  console.log(req.params)
   try {
-    const result = await Checkpoint.deleteOne({ _id: req.query._id });
+    const result = await Checkpoint.deleteOne({ _id: req.params.id });
+    console.log("result")
+    console.log(result)
     if (result.deletedCount === 1)
       return res.status(200).json({ msg: "Deleted Successfully" });
     return res.status(404).json({ msg: "Not Found" });

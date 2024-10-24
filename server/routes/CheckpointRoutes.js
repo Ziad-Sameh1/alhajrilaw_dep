@@ -50,7 +50,7 @@ router.put(
   checkpointController.updateCheckpoint
 );
 router.delete(
-  "/delete",
+  "/delete/:id",
   authMiddleware.verifyAdminLogin,
   checkpointController.deleteCheckpoint
 );

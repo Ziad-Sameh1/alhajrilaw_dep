@@ -2,17 +2,28 @@ const mongoose = require("mongoose");
 
 const CheckpointSchema = new mongoose.Schema(
   {
+    id: {
+      type: mongoose.Schema.Types.ObjectId, // Use ObjectId for unique identifier
+      required: true,
+      auto: true, // Automatically create and assign an ObjectId
+    },
     email: {
       type: String,
       required: true,
     },
-    lat: {
+    checkin_lat: {
       type: String,
       required: true,
     },
-    lng: {
+    checkin_lng: {
       type: String,
       required: true,
+    },
+    checkout_lat: {
+      type: String,
+    },
+    checkout_lng: {
+      type: String,
     },
     checkInTime: {
       type: Date,
