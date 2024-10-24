@@ -6,7 +6,10 @@ const addCategory = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/categories/add`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -23,7 +26,10 @@ const getCategories = async (t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/categories/`
+      `${process.env.REACT_APP_SERVER_LINK}/categories/`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");

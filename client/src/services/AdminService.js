@@ -5,7 +5,10 @@ const login = async (values) => {
     configureStates(true, false, "");
     const admin = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/admins/login`,
-      { email: values.email, password: values.password }
+      { email: values.email, password: values.password },
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     console.log(admin);
     if (admin) {
@@ -45,7 +48,10 @@ const addAdmin = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/admins/add`,
-      body
+      body,
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -62,7 +68,10 @@ const getAdmins = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/admins/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/admins/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -81,7 +90,10 @@ const getAdminByEmail = async (email, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/admins/get-by-email?email=${email}`
+      `${process.env.REACT_APP_SERVER_LINK}/admins/get-by-email?email=${email}`,
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -101,7 +113,10 @@ const updateAdmin = async (id, role, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/admins/update`,
-      { _id: id, role: role }
+      { _id: id, role: role },
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -121,7 +136,10 @@ const deleteAdmin = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/admins/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/admins/delete?_id=${id}`,
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -140,7 +158,9 @@ const deleteAdmin = async (id, t) => {
 const logout = async (t) => {
   try {
     configureStates(true, false, "");
-    await axios.post(`${process.env.REACT_APP_SERVER_LINK}/admins/logout`);
+    await axios.post(`${process.env.REACT_APP_SERVER_LINK}/admins/logout`, {
+      withCredentials: true, // Ensure this is set
+    });
     window.location.replace(
       `${process.env.REACT_APP_CLIENT_LINK}/dashboard/login`
     );
@@ -153,7 +173,10 @@ const getAdminStats = async (t, status = true) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/admins/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/admins/stats`,
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     console.log(result);
     if (status) {
@@ -175,7 +198,10 @@ const getAdminEmail = async (t, status = true) => {
     console.log("before");
 
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/admins/get-email`
+      `${process.env.REACT_APP_SERVER_LINK}/admins/get-email`,
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     console.log("now flag");
     console.log(result);
@@ -197,7 +223,10 @@ const changePassword = async (currentPass, newPass, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/admins/change-password`,
-      { currentPass: currentPass, newPass: newPass }
+      { currentPass: currentPass, newPass: newPass },
+      {
+        withCredentials: true, // Ensure this is set
+      }
     );
     console.log("inside change password");
     console.log(result);

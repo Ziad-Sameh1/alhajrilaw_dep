@@ -32,7 +32,10 @@ const getShares = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/shares/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/shares/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -51,7 +54,10 @@ const getSharesByName = async (name, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/shares/get-by-name?name=${name}`
+      `${process.env.REACT_APP_SERVER_LINK}/shares/get-by-name?name=${name}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -70,7 +76,10 @@ const getShareByLink = async (link, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/shares/get-by-link?link=${link}`
+      `${process.env.REACT_APP_SERVER_LINK}/shares/get-by-link?link=${link}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -90,7 +99,10 @@ const updateShare = async (item, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/shares/update`,
-      item
+      item,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -110,7 +122,10 @@ const deleteShare = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/shares/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/shares/delete?_id=${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -130,7 +145,10 @@ const deleteAllShares = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/shares/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/shares/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -148,7 +166,10 @@ const getSharesStats = async (t, status = true) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/shares/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/shares/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (status) {
       if (result.status == 200) {

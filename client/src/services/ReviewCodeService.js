@@ -14,7 +14,10 @@ const isValidCode = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/review-codes/use`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 200) {
       configureStates(false, false, "");
@@ -34,7 +37,10 @@ const addReviewCode = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/review-codes/add`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -51,7 +57,10 @@ const getReviewCodes = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/review-codes/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/review-codes/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -70,7 +79,10 @@ const getReviewCodesByName = async (name, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/review-codes/get-by-name?name=${name}`
+      `${process.env.REACT_APP_SERVER_LINK}/review-codes/get-by-name?name=${name}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -90,7 +102,10 @@ const updateReviewCode = async (item, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/review-codes/update`,
-      item
+      item,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -110,7 +125,10 @@ const deleteReviewCode = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/review-codes/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/review-codes/delete?_id=${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -130,7 +148,10 @@ const deleteAllReviewCodes = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/review-codes/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/review-codes/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -148,7 +169,10 @@ const getReviewCodesStats = async (t, status = true) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/review-codes/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/review-codes/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (status) {
       if (result.status == 200) {

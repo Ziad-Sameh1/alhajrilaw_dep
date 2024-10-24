@@ -6,7 +6,10 @@ const addFAQ = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/faqs/add`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -23,7 +26,10 @@ const getFAQs = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/faqs/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/faqs/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -42,7 +48,10 @@ const getFAQsByName = async (name, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/faqs/get-by-name?name=${name}`
+      `${process.env.REACT_APP_SERVER_LINK}/faqs/get-by-name?name=${name}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -62,7 +71,10 @@ const updateFAQ = async (item, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/faqs/update`,
-      item
+      item,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -82,7 +94,10 @@ const deleteFAQ = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/faqs/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/faqs/delete?_id=${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -102,7 +117,10 @@ const deleteAllFAQs = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/faqs/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/faqs/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -120,7 +138,10 @@ const getFAQsStats = async (t, status = true) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/faqs/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/faqs/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (status) {
       if (result.status == 200) {

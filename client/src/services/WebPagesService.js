@@ -5,7 +5,10 @@ const getLastPages = async (pageSize, pageNum) => {
   try {
     configureStates(true, false, "");
     const pages = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/last?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/last?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (pages) {
       configureStates(false, false, "");
@@ -22,7 +25,10 @@ const getPage = async (pageLink) => {
   try {
     configureStates(true, false, "");
     const pages = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/pages?link=${pageLink}`
+      `${process.env.REACT_APP_SERVER_LINK}/pages?link=${pageLink}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log(pages);
     if (pages) {
@@ -70,7 +76,10 @@ const getPages = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -89,7 +98,10 @@ const getPagesByName = async (name, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/get-by-name?name=${name}`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/get-by-name?name=${name}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -108,7 +120,10 @@ const getPagesByCategory = async (pageSize, pageNum, category, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/get-by-category?pageSize=${pageSize}&pageNum=${pageNum}&category=${category}`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/get-by-category?pageSize=${pageSize}&pageNum=${pageNum}&category=${category}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -163,7 +178,10 @@ const deletePage = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/delete?_id=${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -183,7 +201,10 @@ const deleteAllPages = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -201,7 +222,10 @@ const getPagesStats = async (t, status = true) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/pages/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/pages/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (status) {
       if (result.status == 200) {

@@ -18,7 +18,12 @@ const formatStats = (stats) => {
 export const getStats = async () => {
   try {
     configureStates(true, false, "");
-    const stats = await axios.get(`${process.env.REACT_APP_SERVER_LINK}/info/`);
+    const stats = await axios.get(
+      `${process.env.REACT_APP_SERVER_LINK}/info/`,
+      {
+        withCredentials: true, // Ensure this is set
+      }
+    );
     if (stats.data) {
       configureStates(false, false, "");
       return formatStats(stats.data);
@@ -35,7 +40,10 @@ export const getWebsiteStats = async (t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/info/`
+      `${process.env.REACT_APP_SERVER_LINK}/info/`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -56,7 +64,10 @@ export const updateWebsiteStats = async (item, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/info/update`,
-      item
+      item,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");

@@ -32,7 +32,10 @@ const getClients = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/clients/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/clients/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log("flag");
     console.log(result);
@@ -53,7 +56,10 @@ const getClientsByName = async (name, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/clients/get-by-name?name=${name}`
+      `${process.env.REACT_APP_SERVER_LINK}/clients/get-by-name?name=${name}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -105,7 +111,10 @@ const deleteClient = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/clients/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/clients/delete?_id=${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -125,7 +134,10 @@ const deleteAllClients = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/clients/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/clients/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -143,7 +155,10 @@ const getClientsStats = async (t, status) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/clients/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/clients/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (status) {
       if (result.status == 200) {
@@ -162,7 +177,10 @@ const getTopClients = async () => {
   try {
     configureStates(true, false, "");
     const topClients = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/clients/top`
+      `${process.env.REACT_APP_SERVER_LINK}/clients/top`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (topClients) {
       configureStates(false, false, "");

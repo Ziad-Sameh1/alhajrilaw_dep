@@ -6,7 +6,10 @@ const addJob = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/jobs/add`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -23,7 +26,10 @@ const getJobs = async (t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/jobs/`
+      `${process.env.REACT_APP_SERVER_LINK}/jobs/`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -42,7 +48,10 @@ const deleteAllJobs = async (t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/jobs/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/jobs/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");

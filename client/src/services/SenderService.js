@@ -5,7 +5,10 @@ const login = async (values) => {
     configureStates(true, false, "");
     const sender = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/senders/login`,
-      { email: values.email, password: values.password }
+      { email: values.email, password: values.password },
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log(sender);
     if (sender) {
@@ -45,7 +48,10 @@ const addSender = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/senders/add`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -62,7 +68,10 @@ const getSenders = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/senders/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/senders/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -81,7 +90,10 @@ const getSenderByEmail = async (email, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/senders/get-by-email?email=${email}`
+      `${process.env.REACT_APP_SERVER_LINK}/senders/get-by-email?email=${email}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -101,7 +113,10 @@ const updateSender = async (id, email, receivers, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/senders/update`,
-      { _id: id, email: email, receivers: receivers }
+      { _id: id, email: email, receivers: receivers },
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -121,7 +136,10 @@ const deleteSender = async (email, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/senders/delete?email=${email}`
+      `${process.env.REACT_APP_SERVER_LINK}/senders/delete?email=${email}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -140,7 +158,10 @@ const deleteSender = async (email, t) => {
 const logout = async (t) => {
   try {
     configureStates(true, false, "");
-    await axios.post(`${process.env.REACT_APP_SERVER_LINK}/senders/logout`);
+    await axios.post(`${process.env.REACT_APP_SERVER_LINK}/senders/logout`,
+      {
+        withCredentials: true,  // Ensure this is set
+      });
     window.location.replace(
       `${process.env.REACT_APP_CLIENT_LINK}/dashboard/login`
     );
@@ -153,7 +174,10 @@ const getSenderStats = async (t, status = true) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/senders/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/senders/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log(result);
     if (status) {
@@ -175,7 +199,10 @@ const getSenderEmail = async (t, status = true) => {
     console.log("before");
 
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/senders/get-email`
+      `${process.env.REACT_APP_SERVER_LINK}/senders/get-email`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log("now flag");
     console.log(result);
@@ -197,7 +224,10 @@ const changePassword = async (currentPass, newPass, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/senders/change-password`,
-      { currentPass: currentPass, newPass: newPass }
+      { currentPass: currentPass, newPass: newPass },
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log("inside change password");
     console.log(result);

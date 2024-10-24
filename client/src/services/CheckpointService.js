@@ -6,7 +6,10 @@ const getSenderCheckpoints = async (email, pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/checkpoints/user?email=${email}&pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/checkpoints/user?email=${email}&pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -42,7 +45,9 @@ const getCheckpointsReport = async (
           endDate: endDate?.toISOString(),
           email: email,
         },
-      }
+        withCredentials: true
+      },
+
     );
     console.log("result", result)
     if (result.status == 200) {
@@ -67,6 +72,9 @@ const deleteCheckpoint = async (
     console.log("axios get")
     const result = await axios.delete(
       `${process.env.REACT_APP_SERVER_LINK}/checkpoints/delete/${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     console.log("result", result)
     if (result.status == 200) {

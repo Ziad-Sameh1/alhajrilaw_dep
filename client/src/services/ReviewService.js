@@ -10,7 +10,7 @@ const postReview = async (body, t) => {
   try {
     configureStates(true, false, "");
     const config = {
-      headers: { Authorization: `Bearer ${body.token}` },
+      headers: { Authorization: `Bearer ${body.token}`, withCredentials: true },
     };
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/reviews/add`,
@@ -36,7 +36,10 @@ const getLastReviews = async () => {
   try {
     configureStates(true, false, "");
     const reviews = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/reviews/last`
+      `${process.env.REACT_APP_SERVER_LINK}/reviews/last`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (reviews) {
       configureStates(false, false, "");
@@ -54,7 +57,10 @@ const addReview = async (body, t) => {
     configureStates(true, false, "");
     const result = await axios.post(
       `${process.env.REACT_APP_SERVER_LINK}/reviews/admin/add`,
-      body
+      body,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status === 201) {
       configureStates(false, false, "");
@@ -71,7 +77,10 @@ const getReviews = async (pageSize, pageNum, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/reviews/get-all?pageSize=${pageSize}&pageNum=${pageNum}`
+      `${process.env.REACT_APP_SERVER_LINK}/reviews/get-all?pageSize=${pageSize}&pageNum=${pageNum}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -90,7 +99,10 @@ const getReviewsByName = async (name, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/reviews/get-by-name?name=${name}`
+      `${process.env.REACT_APP_SERVER_LINK}/reviews/get-by-name?name=${name}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -110,7 +122,10 @@ const updateReview = async (item, t) => {
     configureStates(true, false, "");
     const result = await axios.put(
       `${process.env.REACT_APP_SERVER_LINK}/reviews/update`,
-      item
+      item,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -130,7 +145,10 @@ const deleteReview = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/reviews/delete?_id=${id}`
+      `${process.env.REACT_APP_SERVER_LINK}/reviews/delete?_id=${id}`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -150,7 +168,10 @@ const deleteAllReviews = async (id, t) => {
   try {
     configureStates(true, false, "");
     const result = await axios.delete(
-      `${process.env.REACT_APP_SERVER_LINK}/reviews/delete-all`
+      `${process.env.REACT_APP_SERVER_LINK}/reviews/delete-all`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (result.status == 200) {
       configureStates(false, false, "");
@@ -168,7 +189,10 @@ const getReviewsStats = async (t, status) => {
   try {
     if (status) configureStates(true, false, "");
     const result = await axios.get(
-      `${process.env.REACT_APP_SERVER_LINK}/reviews/stats`
+      `${process.env.REACT_APP_SERVER_LINK}/reviews/stats`,
+      {
+        withCredentials: true,  // Ensure this is set
+      }
     );
     if (status) {
       if (result.status == 200) {
