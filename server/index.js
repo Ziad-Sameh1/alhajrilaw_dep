@@ -32,6 +32,7 @@ app.use(express.urlencoded({ limit: "500mb" }));
 app.use(cors({
   credentials: true,
   origin: function (origin, callback) {
+    console.log("cors")
     if (origin === 'https://alhajrilaw.com.qa' || origin === 'https://www.alhajrilaw.com.qa') {
       console.log("---- ALLOWED CORS ------")
       callback(null, true);
@@ -43,7 +44,6 @@ app.use(cors({
 }));
 app.use(cookieParser());
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(
   "/api/uploads/images/staff",
