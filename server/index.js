@@ -28,7 +28,19 @@ const jobsRouter = require("./routes/JobRoutes");
 dotenv.config();
 app.use(express.json({ limit: "500mb" }));
 app.use(express.urlencoded({ limit: "500mb" }));
-app.use(cors({ credentials: true, origin: process.env.CLIENT_LINK }));
+// app.use(cors({ credentials: true, origin: process.env.CLIENT_LINK }));
+app.use(cors({
+  credentials: true,
+  origin: function (origin, callback) {
+    if (origin === 'https://alhajrilaw.com.qa' || origin === 'https://www.alhajrilaw.com.qa') {
+      console.log("---- ALLOWED CORS ------")
+      callback(null, true);
+    } else {
+      console.log("---- Not allowed by CORS ------")
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(cookieParser());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
