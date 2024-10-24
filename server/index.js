@@ -34,7 +34,7 @@ app.use(cors({
   origin: function (origin, callback) {
     console.log("cors")       
     console.log(origin)
-    if (origin === 'https://alhajrilaw.com.qa' || origin === 'https://www.alhajrilaw.com.qa') {
+    if (!origin || origin === 'https://alhajrilaw.com.qa' || origin === 'https://www.alhajrilaw.com.qa') {
       console.log("---- ALLOWED CORS ------")
       callback(null, true);
     } else {
