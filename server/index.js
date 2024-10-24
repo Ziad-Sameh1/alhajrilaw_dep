@@ -32,7 +32,8 @@ app.use(express.urlencoded({ limit: "500mb" }));
 app.use(cors({
   credentials: true,
   origin: function (origin, callback) {
-    console.log("cors")
+    console.log("cors")       
+    console.log(origin)
     if (origin === 'https://alhajrilaw.com.qa' || origin === 'https://www.alhajrilaw.com.qa') {
       console.log("---- ALLOWED CORS ------")
       callback(null, true);
