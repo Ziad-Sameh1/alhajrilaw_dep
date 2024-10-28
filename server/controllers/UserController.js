@@ -34,9 +34,6 @@ const login = async (req, res) => {
       entity === "user"
         ? process.env.USER_JWT_SECRET
         : process.env.ADMIN_JWT_SECRET,
-      {
-        expiresIn: "60m",
-      }
     );
     return res
       .cookie("token", token, { httpOnly: true })
