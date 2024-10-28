@@ -52,27 +52,38 @@ const ReportsDialog = ({ open, setOpen }) => {
         <>
           {/* Check-in location button */}
           <IconButton
-            onClick={() => openInGoogleMaps(params.row.checkin_lat, params.row.checkin_lng)}
+            onClick={() =>
+              openInGoogleMaps(params.row.checkin_lat, params.row.checkin_lng)
+            }
             aria-label="open check-in location"
           >
             <LocationOnIcon /> {/* Icon for location */}
           </IconButton>
-    
+
           {/* Check-out location button */}
           <IconButton
-            onClick={() => openInGoogleMaps(params.row.checkout_lat, params.row.checkout_lng)}
+            disabled={
+              params.row.checkout_lat == null ||
+              params.row.checkout_lat == undefined
+            }
+            onClick={() =>
+              openInGoogleMaps(params.row.checkout_lat, params.row.checkout_lng)
+            }
             aria-label="open check-out location"
           >
             <ExitToAppIcon /> {/* Icon for checkout location */}
           </IconButton>
-    
+
           {/* Delete button */}
-          <IconButton onClick={() => handleDelete(params.id)} aria-label="delete">
+          <IconButton
+            onClick={() => handleDelete(params.id)}
+            aria-label="delete"
+          >
             <DeleteIcon />
           </IconButton>
         </>
       ),
-    }
+    },
   ];
 
   const rows = data.flatMap((user, userIndex) =>
