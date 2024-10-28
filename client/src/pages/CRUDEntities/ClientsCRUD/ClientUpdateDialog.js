@@ -84,7 +84,7 @@ const ClientUpdateDialog = (props) => {
     >
       <DialogTitle>{isAdd ? t("add-new-item") : t("update")}</DialogTitle>
       <form onSubmit={formik.handleSubmit} className="crud-dialog">
-        {formik.values.imgLink !== "" && (
+        {formik.values.imgLink !== "" && formik.values.imgLink !== undefined && (
           <img
             src={`${process.env.REACT_APP_SERVER}/${formik.values.imgLink}`}
             style={{ width: "100px", margin: "32px" }}
