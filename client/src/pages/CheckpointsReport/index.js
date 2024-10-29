@@ -102,10 +102,31 @@ const ReportsDialog = ({ open, setOpen }) => {
         checkInTime: checkInTime.toLocaleString(),
         checkOutTime: checkOutTime.toLocaleString(),
         placeName: checkpoint.placeName,
-        timeSpent: Math.round(timeSpent / (1000 * 60)) + " " + t("minutes"), // convert to minutes and format
+        timeSpent: formatTimeSpent(timeSpent), // convert to minutes and format
       };
     })
   );
+
+  function formatTimeSpent(ms) {
+    let totalSeconds = Math.floor(ms / 1000);
+    let hours = Math.floor(totalSeconds / 3600);
+    let minutes = Math.floor((totalSeconds % 3600) / 60);
+    let seconds = totalSeconds % 60;
+  
+    // Add leading zeros if the values are less than 10
+    let formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+    let formattedSeconds = seconds < 10 ? "0" + seconds : seconds;
+    let formattedHours = hours < 10 ? "0" + hours : hours;
+  
+    if (hours > 0) {
+      // If there are hours, show as "HH:MM"
+      return `${formattedHours}:${formattedMinutes}`;
+    } else {
+      // Otherwise, show as "MM:SS"
+      return `${formattedMinutes}:${formattedSeconds}`;
+    }
+  }
+  
 
   const openInGoogleMaps = (lat, lng) => {
     const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
