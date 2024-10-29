@@ -71,6 +71,7 @@ const transporter = nodemailer.createTransport(
 
 const addCheckpoint = async (req, res) => {
   try {
+    console.log("addCheckpoint", req.body)
     const { email, checkin_lat, checkin_lng, checkout_lat, checkout_lng, placeName } = req.body; // Updated variable names
     const user = await User.findOne({ email: email });
 
@@ -84,6 +85,7 @@ const addCheckpoint = async (req, res) => {
     let created;
 
     if (checkInStatus === "checked_out" || checkInStatus === "none") {
+      console.log("flag 1")
       checkInStatus = "checked_in";
       checkInTime = new Date();
 
@@ -95,6 +97,7 @@ const addCheckpoint = async (req, res) => {
         placeName: placeName, // Include placeName when checking in
       });
     } else if (checkInStatus === "checked_in") {
+      console.log("flag 2")
       checkInStatus = "checked_out";
       checkOutTime = new Date();
 
@@ -105,7 +108,7 @@ const addCheckpoint = async (req, res) => {
         { sort: { createdAt: -1 }, new: true }
       );
     }
-
+    console.log("created", created)
     if (created) {
       user.checkInStatus = checkInStatus;
       await user.save();
